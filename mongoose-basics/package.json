@@ -4,7 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js",
+    "start-post": "nodemon mongo-save.js",
+    "start-find": "nodemon mongo-find.js",
+    "start-update": "nodemon mongo-update.js",
+    "start-delete": "nodemon mongo-delete.js",
+    "crash": "sh -c 'lsof -i :${PORT:-3000} -t | xargs kill'"
   },
   "author": "",
   "license": "ISC",
