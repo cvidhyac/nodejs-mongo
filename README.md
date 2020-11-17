@@ -28,3 +28,9 @@ Example blog framework using Node js, express, and demonstrate usage of express-
 ```
 brew install mongodb-community
 ```
+
+### Install mongoose
+
+```
+npm install --save mongoose
+```
