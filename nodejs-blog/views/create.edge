@@ -19,35 +19,38 @@
   </header>
 
   <div class="container">
-     <div class = "row">
-     
-        <div class="col-md-8 offset-md-2">
-            <div class="form-group floating-label-form-group controls">
-                <label>Title</label>
-                <input type="text" name="title" class="form-control" placeholder="Title"/>
-            </div>
-        </div>
+      <div class = "row">
+      
+          <form action="/posts/store" method="POST">
+              <div class="col-md-8 offset-md-2">
+                <div class="form-group floating-label-form-group controls">
+                    <label>Title</label>
+                    <input type="text" name="title" class="form-control" placeholder="Title"/>
+                </div>
+              </div>
 
-             
-        <div class="col-md-8 offset-md-2">
-            <div class="form-group floating-label-form-group controls">
-                <label>Description</label>
-                <input type="text" name="description" class="form-control" placeholder="Description"/>
-            </div>
-        </div>
+                
+              <div class="col-md-8 offset-md-2">
+                <div class="form-group floating-label-form-group controls">
+                    <label>Description</label>
+                    <input type="text" name="description" class="form-control" placeholder="Description"/>
+                </div>
+              </div>
 
-             
-        <div class="col-md-8 offset-md-2">
-            <div class="form-group floating-label-form-group controls">
-                <label>Content</label>
-                <textarea name="content" id="" cols="30" rows="10" class="formcontrol" placeholder="Post Content"></textarea>
-            </div>
-        </div>
+                
+              <div class="col-md-8 offset-md-2">
+                <div class="form-group floating-label-form-group controls">
+                    <label>Content</label>
+                    <textarea name="content" cols="30" rows="10" class="form-control" placeholder="Post Content"></textarea>
+                </div>
+              </div>
 
-        <div class="formgroup my-4 textcenter">
-            <button class="btn btn-primary">Create Post</button>
-        </div>
-    </div>
+              <div class="formgroup my-4 textcenter">
+                <button class="btn btn-primary">Create Post</button>
+              </div>
+
+          </form>
+      </div>
   </div>
 
 @endsection

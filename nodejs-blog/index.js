@@ -27,6 +27,10 @@ app.get('/posts/new', (req, res) => {
     res.render('create')
 })
 
+app.post('/posts/store', (req, res) => {
+    res.redirect('/')
+})
+
 app.listen(3000, () => {
     console.log('Blog listening at port ')
 })
