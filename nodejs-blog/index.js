@@ -5,7 +5,8 @@ const app = express()
 app.use(express.static('public'))
 const { config, engine } = require('express-edge');
 const body_parser = require('body-parser')
-const create_post = require('./database/create-post')
+const create_post = require('./database/create-post');
+const Post = require('./database/Post');
 
 // Automatically sets view engine and adds dot notation to app.render
 app.use(engine);
@@ -14,8 +15,15 @@ app.use(body_parser.urlencoded({ extended : true}))
 app.set('views', `${__dirname}/views`);
 
 
-app.get('/', (req, res) => {
-    res.render('index')
+app.get('/', async(req, res) => {
+
+    // await until posts are found
+    const posts = await Post.find({})
+    console.log(posts)
+
+    res.render('index', {
+        posts
+    })
 })
 
 app.get('/about', (req, res) => {
