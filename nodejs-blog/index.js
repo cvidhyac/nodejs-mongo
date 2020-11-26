@@ -1,13 +1,16 @@
 const express = require('express')
-const expressEdge = require('express-edge')
 const path = require('path')
 
 const app = express()
 app.use(express.static('public'))
 const { config, engine } = require('express-edge');
- 
+const body_parser = require('body-parser')
+const create_post = require('./database/create-post')
+
 // Automatically sets view engine and adds dot notation to app.render
 app.use(engine);
+app.use(body_parser.json())
+app.use(body_parser.urlencoded({ extended : true}))
 app.set('views', `${__dirname}/views`);
 
 
@@ -28,6 +31,7 @@ app.get('/posts/new', (req, res) => {
 })
 
 app.post('/posts/store', (req, res) => {
+    create_post.create_new_post(req.body)
     res.redirect('/')
 })
 
