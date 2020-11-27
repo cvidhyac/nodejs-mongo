@@ -7,10 +7,21 @@ mongoose.connect('mongodb://localhost/nodejs-blog', {useNewUrlParser: true, useU
 exports.create_new_post = function(request_body) {
     Post.create(request_body, (err, success) => {
         if(err) {
-            handleError(err)
+            console.log(err)
         }
         else {
             console.log('Save success!')
         }
     })
+}
+
+exports.find_post = function(id) {
+
+    //validate if id is a valid mongoose id
+    if(mongoose.Types.ObjectId.isValid(id)) {
+        return Post.findById(id)
+    } else {
+        console.log('Invalid mongo object id, received :' + id)
+    }
+
 }

@@ -30,17 +30,25 @@ app.get('/about', (req, res) => {
     res.render('about')
 })
 
-app.get('/posts', (req, res) => {
-    res.render('posts')
+app.get('/posts/:id', async(req, res) => {
+
+    const post = await create_post.find_post(req.params.id)
+    res.render('posts', {
+        post
+    })
 })
 
-app.get('/posts/new', (req, res) => {
+app.get('/new', (req, res) => {
     res.render('create')
 })
 
 app.post('/posts/store', (req, res) => {
     create_post.create_new_post(req.body)
     res.redirect('/')
+})
+
+app.get('/contact', (req, res) => {
+    res.render('contact')
 })
 
 app.listen(3000, () => {
