@@ -36,9 +36,18 @@ Query Post collection for delete operations
 
 ## Mini project
 
-[Node Blog](express-static/index.js)
+[Basic Blog](express-static/index.js)
 <br/>
 Example blog framework using Node js, express, and demonstrate usage of express-edge templating with layouts
+
+[Blog with Mongo Integration](nodejs-blog/index.js)
+<br/>
+<p> Demonstrates the following : </p>
+<ul>
+ <li> Index, About, Contact, Create new blog post HTML pages with express-edge integration </li>
+ <li> Save, Retrieve and find data with mongo using node mongoose driver </li>
+ <li> Display dynamic content </li>
+</ul>
 
 ### Install mongo - brew
 
