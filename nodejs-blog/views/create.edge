@@ -21,7 +21,7 @@
   <div class="container">
       <div class = "row">
   
-          <form action="/posts/store" method="POST">
+          <form action="/posts/store" method="POST" enctype="multipart/form-data">
 
             <div class="col-md-8 offset-md-2">
               <div class="form-group floating-label-form-group controls">
@@ -50,6 +50,13 @@
                 <div class="form-group floating-label-form-group controls">
                     <label>Content</label>
                     <textarea name="content" cols="30" rows="10" class="form-control" placeholder="Post Content"></textarea>
+                </div>
+              </div>
+
+              <div class="col-md-8 offset-md-2">
+                <div class="form-group floating-label-form-group controls">
+                    <label>Image</label>
+                    <input type="file" name="image" class="form-control-file">
                 </div>
               </div>
 

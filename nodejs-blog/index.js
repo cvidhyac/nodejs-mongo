@@ -3,13 +3,15 @@ const path = require('path')
 
 const app = express()
 app.use(express.static('public'))
-const { config, engine } = require('express-edge');
+const { config, engine } = require('express-edge')
+const fileUpload = require('express-fileupload')
 const body_parser = require('body-parser')
-const create_post = require('./database/create-post');
+const post_dao = require('./database/post-dao')
 const Post = require('./database/Post');
 
 // Automatically sets view engine and adds dot notation to app.render
 app.use(engine);
+app.use(fileUpload())
 app.use(body_parser.json())
 app.use(body_parser.urlencoded({ extended : true}))
 app.set('views', `${__dirname}/views`);
@@ -32,7 +34,7 @@ app.get('/about', (req, res) => {
 
 app.get('/posts/:id', async(req, res) => {
 
-    const post = await create_post.find_post(req.params.id)
+    const post = await post_dao.find_post(req.params.id)
     res.render('posts', {
         post
     })
@@ -43,8 +45,11 @@ app.get('/new', (req, res) => {
 })
 
 app.post('/posts/store', (req, res) => {
-    create_post.create_new_post(req.body)
-    res.redirect('/')
+    const {image} = req.files
+    image.mv(path.resolve(__dirname, '/public/posts', image.name), (error, success) => {
+        post_dao.create_new_post(req.body)
+        res.redirect('/');
+    });
 })
 
 app.get('/contact', (req, res) => {
