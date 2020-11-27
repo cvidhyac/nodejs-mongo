@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const schema = new mongoose.Schema({
     title: String,
-    description: {
+    subtitle: {
         type: String,
         default: 'No description provided'
     },
