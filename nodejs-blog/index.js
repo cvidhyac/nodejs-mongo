@@ -14,6 +14,11 @@ app.use(engine);
 app.use(fileUpload())
 app.use(body_parser.json())
 app.use(body_parser.urlencoded({ extended : true}))
+const aboutMiddleware = (req, res, next) => {
+    console.log('About middleware is printed, start rendering')
+    next()
+}
+app.use('/about', aboutMiddleware)
 app.set('views', `${__dirname}/views`);
 
 
