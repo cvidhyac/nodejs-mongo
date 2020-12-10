@@ -3,11 +3,7 @@ const path = require('path')
 
 const app = express()
 app.use(express.static('public'))
-const { config, engine } = require('express-edge')
-const fileUpload = require('express-fileupload')
-const body_parser = require('body-parser')
-const post_dao = require('./database/post-dao')
-const Post = require('./database/Post')
+const {engine } = require('express-edge')
 
 const createPostController = require('./controllers/createPost')
 const homePageController = require('./controllers/homePage')
@@ -17,10 +13,7 @@ const findPostController = require('./controllers/findPost')
 const aboutController = require('./controllers/aboutPost')
 
 // Automatically sets view engine and adds dot notation to app.render
-app.use(engine);
-app.use(fileUpload())
-app.use(body_parser.json())
-app.use(body_parser.urlencoded({ extended : true}))
+app.use(engine)
 
 const aboutMiddleware = (req, res, next) => {
     console.log('About middleware is printed, start rendering')
