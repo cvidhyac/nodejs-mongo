@@ -27,6 +27,8 @@ const contactController = require('./controllers/contactPost')
 const findPostController = require('./controllers/findPost')
 const aboutController = require('./controllers/aboutPost')
 const createUserController = require('./controllers/createUser')
+const loginController = require('./controllers/login')
+const loginUserController = require('./controllers/loginUser')
 
 app.get('/', homePageController)
 app.get('/about', aboutController)
@@ -34,6 +36,7 @@ app.get('/new',createPostController)
 app.get('/auth/register', createUserController)
 app.get('/contact', contactController)
 app.get('/posts/:id', findPostController)
+app.get('/auth/login', loginController)
 
 app.post('/posts/store', (req, res) => {
         post_dao.create_new_post(req.body)
@@ -45,6 +48,7 @@ app.post('/user/register', (req, res) => {
     res.redirect('/')
 })
 
+app.post('/user/login', loginUserController)
 
 app.listen(3000, () => {
     console.log('Blog listening at port ')

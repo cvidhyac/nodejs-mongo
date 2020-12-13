@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Post = require('./Post')
 
 // connect to mongo
-mongoose.connect('mongodb://localhost/nodejs-blog', {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect('mongodb://localhost/nodejs-blog', {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false})
 
 exports.create_new_post = function(request_body) {
     Post.create(request_body, (err, success) => {
