@@ -8,7 +8,6 @@ const fileUpload = require('express-fileupload')
 const body_parser = require('body-parser')
 const post_dao = require('./database/post-dao')
 const user_dao = require('./database/user-dao')
-const Post = require('./database/Post')
 
 // Automatically sets view engine and adds dot notation to app.render
 app.use(engine);
@@ -25,21 +24,16 @@ app.set('views', `${__dirname}/views`);
 const createPostController = require('./controllers/createPost')
 const homePageController = require('./controllers/homePage')
 const contactController = require('./controllers/contactPost')
+const findPostController = require('./controllers/findPost')
+const aboutController = require('./controllers/aboutPost')
 const createUserController = require('./controllers/createUser')
 
 app.get('/', homePageController)
-app.get('/about', aboutMiddleware)
+app.get('/about', aboutController)
 app.get('/new',createPostController)
 app.get('/auth/register', createUserController)
 app.get('/contact', contactController)
-
-app.get('/posts/:id', async(req, res) => {
-
-    const post = await post_dao.find_post(req.params.id)
-    res.render('posts', {
-        post
-    })
-})
+app.get('/posts/:id', findPostController)
 
 app.post('/posts/store', (req, res) => {
         post_dao.create_new_post(req.body)
@@ -48,7 +42,6 @@ app.post('/posts/store', (req, res) => {
 
 app.post('/user/register', (req, res) => {
     user_dao.create_user(req.body)
-    console.log(JSON.stringify(req.body))
     res.redirect('/')
 })
 
