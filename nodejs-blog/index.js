@@ -7,6 +7,7 @@ const connectMongo = require('connect-mongo')
 const body_parser = require('body-parser')
 const post_dao = require('./database/post-dao')
 const user_dao = require('./database/user-dao')
+const auth = require('./middleware/auth')
 const mongoose = require('mongoose')
 
 const app = express()
@@ -45,13 +46,13 @@ const loginUserController = require('./controllers/loginUser')
 
 app.get('/', homePageController)
 app.get('/about', aboutController)
-app.get('/new',createPostController)
+app.get('/new', auth, createPostController)
 app.get('/auth/register', createUserController)
 app.get('/contact', contactController)
 app.get('/posts/:id', findPostController)
 app.get('/auth/login', loginController)
 
-app.post('/posts/store', (req, res) => {
+app.post('/posts/store', auth, (req, res) => {
         post_dao.create_new_post(req.body)
         res.redirect('/')
 })
