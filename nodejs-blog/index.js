@@ -1,14 +1,16 @@
 const express = require('express')
 const path = require('path')
-
-const app = express()
-app.use(express.static('public'))
 const { config, engine } = require('express-edge')
 const fileUpload = require('express-fileupload')
+const expressSession = require('express-session')
+const connectMongo = require('connect-mongo')
 const body_parser = require('body-parser')
 const post_dao = require('./database/post-dao')
 const user_dao = require('./database/user-dao')
+const mongoose = require('mongoose')
 
+const app = express()
+app.use(express.static('public'))
 // Automatically sets view engine and adds dot notation to app.render
 app.use(engine);
 app.use(fileUpload())
@@ -19,6 +21,17 @@ const aboutMiddleware = (req, res, next) => {
     next()
 }
 app.use('/about', aboutMiddleware)
+
+// connect to mongo
+mongoose.connect('mongodb://localhost/nodejs-blog', {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false})
+const mongostore = connectMongo(expressSession)
+//express sessions for login
+app.use(expressSession({
+    secret: 'secret',
+    store: new mongostore({
+        mongooseConnection: mongoose.connection
+    })
+}))
 app.set('views', `${__dirname}/views`);
 
 const createPostController = require('./controllers/createPost')
