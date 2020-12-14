@@ -1,3 +1,3 @@
-module.exports = (request, response) => {
-    response.render('register')
+module.exports = (req, res) => {
+    res.render('register')
 }

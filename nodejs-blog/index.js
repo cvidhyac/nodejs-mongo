@@ -58,8 +58,8 @@ app.post('/posts/store', auth, (req, res) => {
 })
 
 app.post('/user/register', (req, res) => {
-    user_dao.create_user(req.body)
-    res.redirect('/')
+    user_dao.create_user(req, res)
+    console.log(req.session.regErrors)
 })
 
 app.post('/user/login', loginUserController)
