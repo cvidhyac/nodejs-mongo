@@ -8,9 +8,11 @@ const body_parser = require('body-parser')
 const post_dao = require('./database/post-dao')
 const user_dao = require('./database/user-dao')
 const auth = require('./middleware/auth')
+const redirectIfAuthenticated = require('./middleware/redirectIfAuthenticated')
+const edge = require('edge.js')
+
 const mongoose = require('mongoose')
 const flash = require('connect-flash')
-
 const app = express()
 app.use(express.static('public'))
 // Automatically sets view engine and adds dot notation to app.render
@@ -36,6 +38,10 @@ app.use(expressSession({
     })
 }))
 app.use(flash())
+app.use('*', (req, res, next) => {
+    edge.global('auth', req.session.userId)
+    next()
+})
 app.set('views', `${__dirname}/views`);
 
 const createPostController = require('./controllers/createPost')
@@ -53,19 +59,19 @@ app.get('/new', auth, createPostController)
 app.get('/auth/register', createUserController)
 app.get('/contact', contactController)
 app.get('/posts/:id', findPostController)
-app.get('/auth/login', loginController)
+app.get('/auth/login', redirectIfAuthenticated, loginController)
 
 app.post('/posts/store', auth, (req, res) => {
         post_dao.create_new_post(req.body)
         res.redirect('/')
 })
 
-app.post('/user/register', (req, res) => {
+app.post('/user/register', redirectIfAuthenticated, (req, res) => {
     user_dao.create_user(req, res)
     // console.log(req.session.regErrors)
 })
 
-app.post('/user/login', loginUserController)
+app.post('/user/login', redirectIfAuthenticated, loginUserController)
 
 app.listen(3001, () => {
     console.log('Blog listening at port ')
