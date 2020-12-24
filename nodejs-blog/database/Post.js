@@ -7,9 +7,10 @@ const schema = new mongoose.Schema({
         default: 'No description provided'
     },
     content: String,
-    username: {
-        type: String,
-        default: 'blogger'
+    user_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     },
     createdAt: {
         type: Date,

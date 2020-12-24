@@ -63,7 +63,7 @@ app.get('/posts/:id', findPostController)
 app.get('/auth/login', redirectIfAuthenticated, loginController)
 
 app.post('/posts/store', auth, (req, res) => {
-        post_dao.create_new_post(req.body)
+        post_dao.create_new_post(req, res)
         res.redirect('/')
 })
 
@@ -74,7 +74,7 @@ app.post('/user/register', redirectIfAuthenticated, (req, res) => {
 
 app.post('/user/login', redirectIfAuthenticated, loginUserController)
 
-app.get('/auth/logout', logoutController)
+app.get('/auth/logout', redirectIfAuthenticated, logoutController)
 app.listen(3001, () => {
     console.log('Blog listening at port ')
 })
