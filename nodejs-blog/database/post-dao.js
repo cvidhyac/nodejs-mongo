@@ -21,7 +21,7 @@ exports.find_post = function (id) {
 
     //validate if id is a valid mongoose id
     if (mongoose.Types.ObjectId.isValid(id)) {
-        return Post.findById(id)
+        return Post.findById(id).populate('user_id')
     } else {
         console.log('Invalid mongo object id, received :' + id)
     }
