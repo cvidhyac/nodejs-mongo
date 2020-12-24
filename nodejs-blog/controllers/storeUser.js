@@ -6,6 +6,8 @@ module.exports = (req, res) => {
     if(regErrors) {
     
         req.flash('flashErrors', regErrors)
+        //persist user data in the form so same details are not required to be entered during validation failures
+        req.flash('data', req.body)
         return res.redirect('/auth/register')
     }
     console.log('reached end, redirecting to homepage')
