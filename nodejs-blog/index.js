@@ -52,6 +52,7 @@ const aboutController = require('./controllers/aboutPost')
 const createUserController = require('./controllers/createUser')
 const loginController = require('./controllers/login')
 const loginUserController = require('./controllers/loginUser')
+const logoutController = require('./controllers/logout')
 
 app.get('/', homePageController)
 app.get('/about', aboutController)
@@ -73,6 +74,7 @@ app.post('/user/register', redirectIfAuthenticated, (req, res) => {
 
 app.post('/user/login', redirectIfAuthenticated, loginUserController)
 
+app.get('/auth/logout', logoutController)
 app.listen(3001, () => {
     console.log('Blog listening at port ')
 })
