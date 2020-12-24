@@ -74,7 +74,13 @@ app.post('/user/register', redirectIfAuthenticated, (req, res) => {
 
 app.post('/user/login', redirectIfAuthenticated, loginUserController)
 
-app.get('/auth/logout', redirectIfAuthenticated, logoutController)
+app.get('/auth/logout', auth, logoutController)
+
+//Not found route looks like a middleware route, but this should be defined when none of the previous routes matched.
+app.use((req, res) => {
+    res.render('notfound')
+})
+
 app.listen(3001, () => {
     console.log('Blog listening at port ')
 })
