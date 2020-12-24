@@ -45,8 +45,17 @@ Example blog framework using Node js, express, and demonstrate usage of express-
 <p> Demonstrates the following : </p>
 <ul>
  <li> Index, About, Contact, Create new blog post HTML pages with express-edge integration </li>
- <li> Save, Retrieve and find data with mongo using node mongoose driver </li>
- <li> Display dynamic content </li>
+ <li> Node Routes and MVC pattern to Save, Retrieve and find data with mongo using node mongoose driver </li>
+ <li> Express Edge Layouts for templating common aspects in a UI </li>
+ <li> Display dynamic content in edge files to present live data from Mongo </li>
+ <li> Express Sessions, REST API, secrets </li>
+ <li> Validations on mongo schema, form validation with flash messages on UI for request scope </li>
+ <li> Node Middleware, custom middleware, applying middleware on selected routes </li>
+ <li> 404 Page, error handling, exceptions and debugging errors </li>
+ <li> Node environment variables using dotenv (.env, added on gitignore to serve its purpose)
+ <li> Mongo integration for database with save, findOne, findById operations using Mongoose
+ <li> Mongoose - simple mongo schema, storing sessions, linking mongo collections in schema, validations </li>
+ <li> Node Authentication, redirect on Auth, Login / Log out middleware
 </ul>
 
 ### Install mongo - brew
@@ -64,3 +73,15 @@ brew services start mongodb/brew/mongodb-community
 ```
 npm install --save mongoose
 ```
+
+### Other npm packages
+
+The mini project uses a variety of npm packages and the following are needed :
+
+- express-edge
+- express-fileupload
+- express-session
+- connect-mongo
+- body-parser
+- connect-flash
+- dotenv
