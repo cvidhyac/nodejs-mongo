@@ -9,6 +9,7 @@ const post_dao = require('./database/post-dao')
 const user_dao = require('./database/user-dao')
 const auth = require('./middleware/auth')
 const mongoose = require('mongoose')
+const flash = require('connect-flash')
 
 const app = express()
 app.use(express.static('public'))
@@ -22,17 +23,19 @@ const aboutMiddleware = (req, res, next) => {
     next()
 }
 app.use('/about', aboutMiddleware)
-
 // connect to mongo
 mongoose.connect('mongodb://localhost/nodejs-blog', {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false})
 const mongostore = connectMongo(expressSession)
 //express sessions for login
 app.use(expressSession({
     secret: 'secret',
+    resave: true,
+    saveUninitialized: true,
     store: new mongostore({
         mongooseConnection: mongoose.connection
     })
 }))
+app.use(flash())
 app.set('views', `${__dirname}/views`);
 
 const createPostController = require('./controllers/createPost')
@@ -59,11 +62,11 @@ app.post('/posts/store', auth, (req, res) => {
 
 app.post('/user/register', (req, res) => {
     user_dao.create_user(req, res)
-    console.log(req.session.regErrors)
+    // console.log(req.session.regErrors)
 })
 
 app.post('/user/login', loginUserController)
 
-app.listen(3000, () => {
+app.listen(3001, () => {
     console.log('Blog listening at port ')
 })

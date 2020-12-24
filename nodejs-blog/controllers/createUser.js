@@ -1,6 +1,7 @@
+//This acts as View in MVC
 module.exports = (req, res) => {
-    console.log(req.session.regErrors)
+    // console.log(req.session.regErrors)
     res.render('register', {
-        errors: req.session.regErrors
+        errors: req.flash('flashErrors')
     })
 }

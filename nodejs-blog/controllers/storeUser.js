@@ -4,7 +4,8 @@ module.exports = (req, res) => {
     console.log(req.body)
     const regErrors = user_dao.create_user(req.body)
     if(regErrors) {
-        req.session.regErrors = regErrors
+    
+        req.flash('flashErrors', regErrors)
         return res.redirect('/auth/register')
     }
     console.log('reached end, redirecting to homepage')
