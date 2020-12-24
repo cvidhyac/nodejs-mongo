@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express')
 const path = require('path')
 const { config, engine } = require('express-edge')
@@ -26,11 +27,11 @@ const aboutMiddleware = (req, res, next) => {
 }
 app.use('/about', aboutMiddleware)
 // connect to mongo
-mongoose.connect('mongodb://localhost/nodejs-blog', {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false})
+mongoose.connect(process.env.MONGO_CONNECTION_URI, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false})
 const mongostore = connectMongo(expressSession)
 //express sessions for login
 app.use(expressSession({
-    secret: 'secret',
+    secret: process.env.EXPRESS_SESSION_KEY,
     resave: true,
     saveUninitialized: true,
     store: new mongostore({
@@ -81,6 +82,6 @@ app.use((req, res) => {
     res.render('notfound')
 })
 
-app.listen(3001, () => {
-    console.log('Blog listening at port ')
+app.listen(process.env.NODE_PORT, () => {
+    console.log('Blog listening at port ' + process.env.NODE_PORT)
 })
