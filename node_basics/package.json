@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.18.2"
   },
   "name": "node-basics",
   "description": "Basic Node JS practice and use of mongoose mongo driver",
